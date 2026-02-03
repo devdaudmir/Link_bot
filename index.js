@@ -166,7 +166,9 @@ client.on('message', async (msg) => {
         const hasLink = LINK_REGEX.test(msg.body || '') ||
             (msg.caption && LINK_REGEX.test(msg.caption));
 
-        if (!hasLink && !isVoiceMessage) {
+        const isChannelForwarded = !!msg._data.forwardedNewsletterMessageInfo;
+
+        if (!hasLink && !isVoiceMessage && !isChannelForwarded) {
             return;
         }
 
